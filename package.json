@@ -1,0 +1,23 @@
+{
+  "name": "dnshit",
+  "version": "1.0.0",
+  "description": "Shitty DNS Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrettSheleski/DNShit.git"
+  },
+  "keywords": [
+    "DNS",
+    "Shitty"
+  ],
+  "author": "Brett Sheleski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrettSheleski/DNShit/issues"
+  },
+  "homepage": "https://github.com/BrettSheleski/DNShit#readme"
+}
