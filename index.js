@@ -1,8 +1,53 @@
-var dnsd = require('dnsd');
+//import required libraries
+var dns = require('native-dns');
+var util = require('util');
 
-var server = dnsd.createServer(function(req, res) {
-	res.end('63.135.90.70');
+var customEntries = {
+	'facebook.com': [
+		{
+			name: 'facebook.com',
+			address: '63.135.90.70',
+			ttl: 30
+		}
+	]
+};
+
+var server = dns.createServer();
+
+server.on('request', function (request, response) {
+	var domain = request.question[0].name;
+	if(customEntries[domain]){
+		//if custom entry exists, push it back...
+		var entries = customEntries[domain];
+		for(var i=0;i<entries.length;i++){
+			var entry = entries[i];
+			response.answer.push(dns.A(entry));
+		}
+		response.send();
+	} else {
+		var question = dns.Question({
+		  name: domain,
+		  type: 'A',
+		});
+		var req = dns.Request({
+		  question: question,
+		  server: { address: '8.8.8.8', port: 53, type: 'udp' },
+		  timeout: 1000,
+		});
+		req.on('message', function (err, answer) {
+			var entries = [];
+			answer.answer.forEach(function (a) {
+				response.answer.push(dns.A(a));
+			});
+			response.send();
+		});
+		req.send();
+	}
 });
 
-server.listen(53, '127.0.0.1');
-console.log('Server running at 127.0.0.1:53')
+server.on('error', function (err, buff, req, res) {
+  console.log(err.stack);
+});
+
+console.log('Listening on '+53);
+server.serve(53);
