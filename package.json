@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/BrettSheleski/DNShit/issues"
   },
-  "homepage": "https://github.com/BrettSheleski/DNShit#readme"
+  "homepage": "https://github.com/BrettSheleski/DNShit#readme",
+  "dependencies" : {
+    "native-dns": "*",
+    "util": "*"
+  }
 }
