@@ -1,0 +1,2 @@
+# DNShit
+Shitty DNS
